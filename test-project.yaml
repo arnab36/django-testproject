@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    run: django-project
+  name: django-project
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      run: django-project
+  template:
+    metadata:
+      labels:
+        run: django-project
+        gamify: dev
+    spec:
+      containers:
+      - name: django-project
+        image: us.icr.io/ups_gamification/django-project:latest
+        imagePullPolicy: Always
+        ports:
+          - name: http
+            containerPort: 8000
+          - name: actuator
+            containerPort: 8000
+        resources:
+          limits:
+            memory: 500Mi
+          requests:
+            memory: 500Mi
+        
